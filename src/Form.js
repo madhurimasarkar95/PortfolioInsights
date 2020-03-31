@@ -17,10 +17,11 @@ class Form extends Component{
                     Cricket:false,
                     Gender:" ",
                     Message:" ",
-                    showalert:false
-        }
+                    showalert:false,
+                    selectValue:" "        }
         this.onCheckChange=this.onCheckChange.bind(this)
         this.onRadioChange=this.onRadioChange.bind(this)
+        this.onDropdownChange=this.onDropdownChange.bind(this)
     } 
 
     onCheckChange =(event)=>
@@ -32,45 +33,25 @@ class Form extends Component{
         this.setState({[event.target.name] : event.target.value })
     }
 
-    handlefistname = (event) =>
+    onDropdownChange=(event) =>
     {
-        this.setState({FirstName:event.target.value})
+        this.setState({selectValue:event.target.value })
+    }
+
+    handletext = (event,key) =>
+
+    {
+
+             this.setState({[`${key}`]:event.target.value})
+         
                
     }
 
-    handlelastname = (event) =>
-    {
-        this.setState({LastName:event.target.value})
-               
-    }
-
-    handledateofbirth= (event) =>
-    {
-        this.setState({DateOfBirth:event.target.value})
-               
-    }
-
-    handleemail= (event) =>
-    {
-        this.setState({Email:event.target.value})
-               
-    }
-
-    handlephonenumber= (event) =>
-    {
-        this.setState({PhoneNumber:event.target.value})
-               
-    }
-    handlegender=(event) =>
+   
+   handlegender=(event) =>
     {
         this.setState({Gender:event.target.value})
         
-    }
-
-    handlemessage= (event) =>
-    {
-        this.setState({Message:event.target.value})
-               
     }
     
     handlesubmit=(event) =>
@@ -85,17 +66,18 @@ class Form extends Component{
             <div>
             <form onSubmit ={this.handlesubmit}>
 
+    
             <label> FirstName </label><br/>
             <input type="text" value={this.state.FirstName}
-                onChange={this.handlefistname} /> <br/>
+                onChange={(event)=> this.handletext(event,'FirstName')} /> <br/>
 
             <label> LastName </label><br/>
             <input type="text" value={this.state.LastName}
-            onChange={this.handlelastname} /> <br/>
+            onChange={(event)=>this.handletext(event,'LastName')} /> <br/>
             
             <label> DateOfBirth </label><br/>
             <input type="date" value={this.state.DateOfBirth} 
-                onChange={this.handledateofbirth} /> <br/>
+                onChange={(event)=>this.handletext(event,'DateOfBirth')} /> <br/>
 
             <label>
                 Hobbies : 
@@ -125,18 +107,29 @@ class Form extends Component{
             
             <label> Email </label><br/>
             <input type="email" value={this.state.Email}
-                onChange={this.handleemail}/> <br/>
+                onChange={(event)=>this.handletext(event,'Email')}/> <br/>
 
-            <label> Phoneumber</label><br/>
+            <label> PhoneNumber</label><br/>
             <input type="number"value={this.state.PhoneNumber}
-                onChange={this.handlephonenumber}/> <br/>
+                onChange={(event)=>this.handletext(event,'PhoneNumber')}/> <br/>
+
+                <label>Location</label><br/>
+                <divv>
+                <select value={this.state.selectValue} onChange={this.onDropdownChange} >
+                <option value="India"> India </option>              
+                <option value="United State" > United State </option>             
+                <option value="United Kingdom" > United Kingdom </option>                 
+                 </select>   
+                 </divv>   <br/>      
 
             <label> Message </label><br/>
             <textarea value={this.state.Message}
-                onChange={this.handlemessage}/> <br/>
+                onChange={(event)=>this.handletext(event,'Message')}/> <br/>
 
+            
             <input type= "submit" value="Submit"/><br/>
             
+
             </form>
              { this.state.showalert && 
             <Child parentstate={this.state}/> 
